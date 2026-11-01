@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScamSathi Bharat AI — Think Before You Click. Stay Safe Before You Pay.</title>
+    <meta name="description" content="AI-powered cybersecurity dashboard for Indian citizens to detect phishing messages, suspicious URLs, UPI fraud, and digital scams. Problem Statement #02 - PhishShield AI.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="pwa/manifest.webmanifest">
+    <meta name="theme-color" content="#070c18">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar(false)"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <div class="brand-logo-glow">
+                    <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4" stroke="#00f2fe" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">ScamSathi</span>
+                    <span class="brand-badge">BHARAT AI</span>
+                </div>
+            </div>
+            <button class="mobile-close-btn" onclick="toggleSidebar(false)" aria-label="Close menu">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="project-pill">
+            <span class="pill-dot"></span>
+            <span>Problem #02: PhishShield AI</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="9" rx="1.5"/>
+                    <rect x="14" y="3" width="7" height="5" rx="1.5"/>
+                    <rect x="14" y="12" width="7" height="9" rx="1.5"/>
+                    <rect x="3" y="16" width="7" height="5" rx="1.5"/>
+                </svg>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="message" onclick="showPage('message')">
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    <path d="M8 10h.01M12 10h.01M16 10h.01" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span>Message Scanner</span>
+                <span class="nav-chip">Indic</span>
+            </button>
+
+            <button class="nav-item" data-page="url" onclick="showPage('url')">
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+                <span>URL Scanner</span>
+            </button>
+
+            <button class="nav-item" data-page="history" onclick="showPage('history')">
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <span>Scan History</span>
+                <span class="nav-counter" id="sidebarHistoryCount">0</span>
+            </button>
+
+            <button class="nav-item" data-page="awareness" onclick="showPage('awareness')">
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a5 5 0 0 0-5 5v2a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5z"/>
+                    <path d="M12 14v4M8 22h8M12 18h.01"/>
+                    <path d="M4 10h2M18 10h2"/>
+                </svg>
+                <span>Security Awareness</span>
+            </button>
+
+            <button class="nav-item" data-page="about" onclick="showPage('about')">
+                <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="16" x2="12" y2="12"/>
+                    <line x1="12" y1="8" x2="12.01" y2="8"/>
+                </svg>
+                <span>About ScamSathi</span>
+            </button>
+
+            <a href="pwa/index.html" class="nav-item" style="text-decoration:none;border:1px solid rgba(0,242,254,0.3);background:rgba(0,242,254,0.06);margin-top:10px;border-radius:10px;">
+                <span style="font-size:18px;">📱</span>
+                <span>Mobile PWA App</span>
+                <span class="nav-chip" style="background:#00f2fe;color:#070c18;font-weight:800;">LAUNCH</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="engine-status-box">
+                <div class="status-indicator-row">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text">Heuristic Engine v2.4</span>
+                </div>
+                <p class="status-sub">Rule-Based Demo Mode Active</p>
+            </div>
+
+            <div class="emergency-help-card">
+                <div class="help-card-header">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#f87171" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <span>National Cyber Helpline</span>
+                </div>
+                <div class="help-phone">Call <strong>1930</strong></div>
+                <div class="help-link">cybercrime.gov.in</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+
+        <!-- Top Navigation Bar -->
+        <header class="top-nav">
+            <div class="top-left">
+                <button class="hamburger-btn" onclick="toggleSidebar(true)" aria-label="Open menu">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                </button>
+                <div class="page-title-box">
+                    <h1 id="pageTitle">Security Dashboard</h1>
+                    <span class="page-subtitle" id="pageSubtitle">AI-Powered Indian Cyber Threat Protection Suite</span>
+                </div>
+            </div>
+
+            <!-- Threat Advisory Ticker -->
+            <div class="advisory-ticker" title="Live Threat Bulletin">
+                <span class="ticker-badge">LIVE ALERT</span>
+                <span class="ticker-text">Beware of fake "Bijli Disconnection" SMS containing malicious .apk download links!</span>
+            </div>
+
+            <div class="top-right">
+                <!-- Notifications Bell -->
+                <div class="dropdown-wrapper">
+                    <button class="icon-btn" id="notifBtn" onclick="toggleNotifications()" aria-label="Notifications" title="Security Advisories">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                        <span class="notif-badge">3</span>
+                    </button>
+
+                    <!-- Notifications Dropdown -->
+                    <div class="dropdown-menu notif-dropdown" id="notifDropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-title">National Cyber Advisories</span>
+                            <span class="advisory-count">3 New</span>
+                        </div>
+                        <div class="advisory-item high">
+                            <div class="advisory-dot red"></div>
+                            <div>
+                                <p class="advisory-title">Electricity Bill APK Fraud</p>
+                                <p class="advisory-desc">Fraudsters sending SMS claiming power will be cut tonight at 9:30 PM with malicious APK.</p>
+                                <span class="advisory-time">Active Trend in India</span>
+                            </div>
+                        </div>
+                        <div class="advisory-item high">
+                            <div class="advisory-dot orange"></div>
+                            <div>
+                                <p class="advisory-title">Digital Arrest Intimidation</p>
+                                <p class="advisory-desc">Fake Skype video calls impersonating CBI/Mumbai Police demanding immediate RTGS transfers.</p>
+                                <span class="advisory-time">Advisory from MHA 1930</span>
+                            </div>
+                        </div>
+                        <div class="advisory-item">
+                            <div class="advisory-dot yellow"></div>
+                            <div>
+                                <p class="advisory-title">UPI PIN Cashback Trap</p>
+                                <p class="advisory-desc">Reminder: You NEVER need to enter your UPI PIN or scan a QR code to receive money.</p>
+                                <span class="advisory-time">NPCI Safety Directive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Portal Link -->
+                <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" class="portal-link-btn" title="Visit Indian National Cyber Crime Portal">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>cybercrime.gov.in</span>
+                </a>
+
+                <!-- User Profile Placeholder -->
+                <div class="user-profile-badge" title="Active Security Analyst Session">
+                    <div class="avatar-circle">
+                        <span>🇮🇳</span>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-role">Citizen Portal</span>
+                        <span class="user-mode">Protection Active</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Body -->
+        <main class="main-content">
+
+            <!-- ============================================================== -->
+            <!-- SECTION 1: DASHBOARD                                           -->
+            <!-- ============================================================== -->
+            <section id="dashboard" class="page-view">
+
+                <!-- Welcome Hero Banner -->
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <div class="hero-tag">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            <span>National College Hackathon Edition · PhishShield AI #02</span>
+                        </div>
+                        <h2 class="hero-title">Think Before You Click.<br><span class="cyan-gradient">Stay Safe Before You Pay.</span></h2>
+                        <p class="hero-desc">
+                            India’s intelligent fraud detection engine for everyday citizens, students, and seniors. Analyze SMS messages, WhatsApp forwards, phishing URLs, and UPI fraud patterns in seconds.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" onclick="showPage('message')">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                </svg>
+                                <span>Scan Suspicious Message</span>
+                            </button>
+                            <button class="btn btn-secondary" onclick="showPage('url')">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                </svg>
+                                <span>Scan Suspicious Link</span>
+                            </button>
+                            <button class="btn btn-outline" onclick="showPage('awareness')">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2a5 5 0 0 0-5 5v2a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5z"/>
+                                </svg>
+                                <span>Learn Common Scams</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="shield-radar">
+                            <div class="radar-circle radar-1"></div>
+                            <div class="radar-circle radar-2"></div>
+                            <div class="radar-circle radar-3"></div>
+                            <div class="radar-sweep"></div>
+                            <div class="radar-center-shield">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#00f2fe" stroke-width="1.8">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <path d="M12 8v4M12 16h.01" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="telemetry-pill">
+                            <span class="telemetry-dot"></span>
+                            <span>Local Heuristic Engine Ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">Total Scans Conducted</span>
+                            <div class="metric-icon blue">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value" id="totalScans">0</div>
+                        <div class="metric-sub">Session &amp; stored user telemetry</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">High-Risk Detections</span>
+                            <div class="metric-icon red">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value red-text" id="highScans">0</div>
+                        <div class="metric-sub">Score &ge; 60/100 (Severe Threat)</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">Scans Requiring Review</span>
+                            <div class="metric-icon yellow">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value yellow-text" id="reviewScans">0</div>
+                        <div class="metric-sub">Score 30-59 (Suspicious Elements)</div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-top">
+                            <span class="metric-label">Safe &amp; Low Risk Results</span>
+                            <div class="metric-icon green">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="metric-value green-text" id="safeScans">0</div>
+                        <div class="metric-sub">Score &lt; 30 (No major red flags)</div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Content Split -->
+                <div class="dashboard-split">
+                    <!-- Left: Recent Activity -->
+                    <div class="card recent-activity-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Recent Scan Activity</h3>
+                                <p class="card-subtitle">Last 5 security scans evaluated locally</p>
+                            </div>
+                            <button class="btn btn-ghost btn-sm" onclick="showPage('history')">View All History &rarr;</button>
+                        </div>
+                        <div id="recentScansList" class="recent-list">
+                            <!-- Injected dynamically by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Threat Bulletin for Indian Users -->
+                    <div class="card threat-intel-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Indian Threat Intelligence</h3>
+                                <p class="card-subtitle">Active scam methods reported to Cyber Cell</p>
+                            </div>
+                            <span class="badge badge-warning">High Alert</span>
+                        </div>
+                        <div class="threat-items">
+                            <div class="threat-row">
+                                <div class="threat-badge-icon red">⚡</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">Bijli Bill Power Cut APK</span>
+                                    <span class="threat-desc">Fake SMS asking to download .apk to pay unpaid bill or power will be cut tonight at 9:30 PM.</span>
+                                </div>
+                            </div>
+                            <div class="threat-row">
+                                <div class="threat-badge-icon red">💰</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">UPI "Receive Money" PIN Trap</span>
+                                    <span class="threat-desc">Scammer sends QR or request asking to enter UPI PIN to "receive" cashback/OLX payment.</span>
+                                </div>
+                            </div>
+                            <div class="threat-row">
+                                <div class="threat-badge-icon orange">⚖️</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">"Digital Arrest" Intimidation</span>
+                                    <span class="threat-desc">Fraudsters posing as CBI/Customs/Police claiming a parcel with narcotics was found in your name.</span>
+                                </div>
+                            </div>
+                            <div class="threat-row">
+                                <div class="threat-badge-icon yellow">💼</div>
+                                <div class="threat-info">
+                                    <span class="threat-name">Telegram "Like &amp; Earn" Task Scam</span>
+                                    <span class="threat-desc">Offers ₹500 for liking hotel/YouTube reviews, later freezes money in fake crypto schemes.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="threat-footer">
+                            <small class="text-muted">Data compiled for Hackathon Demonstration · Verified against MHA 1930 advisories.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meaningful Risk Distribution Visual Bar (clearly labeled Demo Data) -->
+                <div class="card risk-spectrum-card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Risk Distribution Spectrum</h3>
+                            <p class="card-subtitle">Live breakdown across verified heuristic tiers</p>
+                        </div>
+                        <span class="badge badge-neutral">Demo Telemetry</span>
+                    </div>
+                    <div class="spectrum-bar">
+                        <div class="spectrum-segment safe-seg" id="spectrumSafe" style="width: 33%" title="Safe Scans">Safe</div>
+                        <div class="spectrum-segment review-seg" id="spectrumReview" style="width: 33%" title="Requiring Review">Review</div>
+                        <div class="spectrum-segment high-seg" id="spectrumHigh" style="width: 34%" title="High Risk">High Risk</div>
+                    </div>
+                    <div class="spectrum-legend">
+                        <div class="legend-item"><span class="legend-dot green"></span> Low Risk (0–29)</div>
+                        <div class="legend-item"><span class="legend-dot yellow"></span> Moderate Risk (30–59)</div>
+                        <div class="legend-item"><span class="legend-dot red"></span> High / Severe Risk (60–100)</div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ============================================================== -->
+            <!-- SECTION 2: MESSAGE SCANNER                                     -->
+            <!-- ============================================================== -->
+            <section id="message" class="page-view hidden">
+                <div class="scanner-container">
+                    
+                    <div class="scanner-header-box">
+                        <div class="scanner-titles">
+                            <h2 class="scanner-title">Message Intelligence Engine</h2>
+                            <p class="scanner-desc">
+                                Paste an SMS, WhatsApp forward, email, or chat message to analyze phishing language, urgent threat hooks, and Indian banking/UPI scams.
+                            </p>
+                        </div>
+                        <div class="lang-support-pills">
+                            <span class="lang-pill"><span class="flag">🇮🇳</span> English</span>
+                            <span class="lang-pill"><span class="flag">🇮🇳</span> हिंदी (Hindi)</span>
+                            <span class="lang-pill"><span class="flag">🇮🇳</span> Hinglish</span>
+                        </div>
+                    </div>
+
+                    <!-- Test Case Quick Presets for Hackathon Judges -->
+                    <div class="presets-bar">
+                        <span class="presets-label">⚡ Hackathon Test Presets:</span>
+                        <div class="preset-buttons">
+                            <button class="preset-btn" onclick="loadMessagePreset('bijli')">⚡ Electricity Bill APK</button>
+                            <button class="preset-btn" onclick="loadMessagePreset('upi')">💰 UPI ₹5000 Cashback</button>
+                            <button class="preset-btn" onclick="loadMessagePreset('kyc')">🏦 SBI YONO KYC Blocked</button>
+                            <button class="preset-btn" onclick="loadMessagePreset('job')">💼 Telegram Rating Scam</button>
+                            <button class="preset-btn" onclick="loadMessagePreset('digital_arrest')">⚖️ CBI Digital Arrest</button>
+                            <button class="preset-btn safe-preset" onclick="loadMessagePreset('safe')">✅ Safe Bank OTP Alert</button>
+                        </div>
+                    </div>
+
+                    <div class="card input-card">
+                        <div class="textarea-wrapper">
+                            <textarea 
+                                id="messageInput" 
+                                placeholder="Paste SMS or WhatsApp message here... (e.g. 'Dear Customer, your electricity power will be disconnected tonight at 9:30 PM due to unpaid bill. Update bill via http://bijli-update.apk immediately...')"
+                                oninput="updateMessageCount()"
+                            ></textarea>
+                            <div class="textarea-footer">
+                                <div class="counts">
+                                    <span id="msgCharCount">0 characters</span> · <span id="msgWordCount">0 words</span>
+                                </div>
+                                <div class="textarea-actions">
+                                    <button class="btn btn-ghost btn-sm" onclick="pasteMessage()">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                                        </svg>
+                                        <span>Paste Clipboard</span>
+                                    </button>
+                                    <button class="btn btn-ghost btn-sm" onclick="clearMessage()">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3 6 5 6 21 6"/>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                        </svg>
+                                        <span>Clear</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scan-submit-row">
+                            <button class="btn btn-primary btn-lg" id="scanMessageBtn" onclick="scanMessage()">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                </svg>
+                                <span>Analyze Message with ScamSathi AI</span>
+                            </button>
+                            <span class="engine-tag">⚡ Indic PhishShield Heuristic Engine v2.4</span>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="messageLoading" class="analysis-loader hidden">
+                        <div class="scanner-spinner"></div>
+                        <div class="loader-content">
+                            <p class="loader-title">Scanning message text against Indian cyber scam heuristics...</p>
+                            <p class="loader-step" id="msgLoaderStep">Evaluating UPI PIN solicitation &amp; credential urgency...</p>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="messageResult" class="result-container hidden">
+                        <!-- Dynamically populated -->
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- ============================================================== -->
+            <!-- SECTION 3: URL SCANNER                                         -->
+            <!-- ============================================================== -->
+            <section id="url" class="page-view hidden">
+                <div class="scanner-container">
+                    
+                    <div class="scanner-header-box">
+                        <div class="scanner-titles">
+                            <h2 class="scanner-title">URL &amp; Link Intelligence Scanner</h2>
+                            <p class="scanner-desc">
+                                Inspect links from SMS, WhatsApp, and social media. Detects deceptive brand impersonation (SBI, HDFC, India Post, Income Tax), high-risk TLDs, IP hostnames, and suspicious file extensions (.apk, .exe).
+                            </p>
+                        </div>
+                        <div class="sandbox-guarantee">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#38bdf8" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <span>Air-Gapped Sandbox: URLs are never visited or executed</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Sample Presets -->
+                    <div class="presets-bar">
+                        <span class="presets-label">⚡ Sample Test URLs:</span>
+                        <div class="preset-buttons">
+                            <button class="preset-btn" onclick="loadUrlPreset('sbi_fake')">🏦 Fake SBI KYC (.top)</button>
+                            <button class="preset-btn" onclick="loadUrlPreset('apk_direct')">⚡ Dangerous IP .APK Download</button>
+                            <button class="preset-btn" onclick="loadUrlPreset('shortener')">🔗 Obfuscated Shortlink (bit.ly)</button>
+                            <button class="preset-btn safe-preset" onclick="loadUrlPreset('legit_sbi')">✅ Genuine Official SBI Portal</button>
+                        </div>
+                    </div>
+
+                    <div class="card input-card">
+                        <div class="url-input-group">
+                            <div class="url-prefix-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#94a3b8" stroke-width="2">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                </svg>
+                            </div>
+                            <input 
+                                id="urlInput" 
+                                type="text" 
+                                placeholder="Enter link to scan (e.g. sbi-kyc-update.xyz/login or https://example.com)..."
+                                onkeydown="if(event.key === 'Enter') scanURL()"
+                            >
+                            <button class="btn btn-ghost btn-sm" onclick="clearURL()">Clear</button>
+                        </div>
+
+                        <div class="scan-submit-row">
+                            <button class="btn btn-primary btn-lg" id="scanUrlBtn" onclick="scanURL()">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="2" y1="12" x2="22" y2="12"/>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                </svg>
+                                <span>Inspect &amp; Analyze URL</span>
+                            </button>
+                            <span class="engine-tag">🛡️ Deep Domain &amp; Brand Spoofing Verifier</span>
+                        </div>
+                    </div>
+
+                    <!-- URL Loading State -->
+                    <div id="urlLoading" class="analysis-loader hidden">
+                        <div class="scanner-spinner"></div>
+                        <div class="loader-content">
+                            <p class="loader-title">Deconstructing URL structure in safe air-gapped sandbox...</p>
+                            <p class="loader-step" id="urlLoaderStep">Checking TLD reputation, punycode spoofing, and brand impersonation...</p>
+                        </div>
+                    </div>
+
+                    <!-- URL Results -->
+                    <div id="urlResult" class="result-container hidden">
+                        <!-- Populated by JavaScript -->
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- ============================================================== -->
+            <!-- SECTION 4: SCAN HISTORY                                        -->
+            <!-- ============================================================== -->
+            <section id="history" class="page-view hidden">
+                <div class="card history-page-card">
+                    <div class="history-header">
+                        <div>
+                            <h2 class="card-title">Security Scan Audit Log</h2>
+                            <p class="card-subtitle">Stored locally in your browser. Raw passwords, PINs, and OTPs are automatically masked for privacy.</p>
+                        </div>
+                        <div class="history-top-actions">
+                            <button class="btn btn-outline btn-sm" onclick="exportHistory()">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                <span>Export Audit Log</span>
+                            </button>
+                            <button class="btn btn-danger-outline btn-sm" onclick="promptClearHistory()">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                                <span>Clear History</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- History Search & Filter Bar -->
+                    <div class="history-controls">
+                        <div class="search-input-box">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#94a3b8" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="historySearch" placeholder="Search past scan logs by keyword, category, or threat level..." oninput="displayHistory()">
+                        </div>
+
+                        <div class="filter-pills" id="historyFilters">
+                            <button class="filter-pill active" data-filter="all" onclick="setHistoryFilter('all')">All Scans</button>
+                            <button class="filter-pill" data-filter="high" onclick="setHistoryFilter('high')">High Risk (60+)</button>
+                            <button class="filter-pill" data-filter="review" onclick="setHistoryFilter('review')">Needs Review</button>
+                            <button class="filter-pill" data-filter="safe" onclick="setHistoryFilter('safe')">Safe Results</button>
+                            <button class="filter-pill" data-filter="message" onclick="setHistoryFilter('message')">Messages Only</button>
+                            <button class="filter-pill" data-filter="url" onclick="setHistoryFilter('url')">URLs Only</button>
+                        </div>
+                    </div>
+
+                    <!-- History Table / Cards -->
+                    <div id="historyList" class="history-table-container">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ============================================================== -->
+            <!-- SECTION 5: SECURITY AWARENESS                                  -->
+            <!-- ============================================================== -->
+            <section id="awareness" class="page-view hidden">
+                <div class="awareness-container">
+                    
+                    <div class="awareness-header-box">
+                        <div>
+                            <h2 class="scanner-title">Bharat Cyber Awareness Hub</h2>
+                            <p class="scanner-desc">
+                                Educational guides and safety playbooks designed specifically for everyday Indian digital payment users, senior citizens, and students.
+                            </p>
+                        </div>
+                        <div class="helpline-badge-cta">
+                            <span>Emergency Incident? Dial <strong>1930</strong> or visit <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer">cybercrime.gov.in</a></span>
+                        </div>
+                    </div>
+
+                    <!-- Category Tabs -->
+                    <div class="awareness-tabs" id="awarenessTabs">
+                        <button class="tab-btn active" onclick="filterAwareness('all')">All Scams (6)</button>
+                        <button class="tab-btn" onclick="filterAwareness('upi')">UPI &amp; Payments</button>
+                        <button class="tab-btn" onclick="filterAwareness('banking')">Banking &amp; KYC</button>
+                        <button class="tab-btn" onclick="filterAwareness('apk')">Malicious APKs</button>
+                        <button class="tab-btn" onclick="filterAwareness('impersonation')">Digital Arrest &amp; Police</button>
+                        <button class="tab-btn" onclick="filterAwareness('jobs')">Telegram &amp; Work Scams</button>
+                    </div>
+
+                    <!-- Scam Cards Grid -->
+                    <div class="awareness-grid" id="awarenessGrid">
+
+                        <!-- Card 1: UPI Fraud -->
+                        <div class="card awareness-card" data-category="upi">
+                            <div class="awareness-card-top">
+                                <span class="awareness-tag red">High Prevalence</span>
+                                <span class="awareness-cat">UPI &amp; Payments</span>
+                            </div>
+                            <h3 class="awareness-title">The UPI "Receive Money" PIN Scam</h3>
+                            <p class="awareness-summary">
+                                Scammers pose as buyers on OLX, lucky draw agents, or customer support offering a ₹5,000 refund/cashback and ask you to enter your UPI PIN or scan a QR code.
+                            </p>
+                            <div class="awareness-callout red-callout">
+                                <strong>Golden Rule:</strong> UPI PIN is strictly used for <em>SENDING</em> money from your bank account. You <u>NEVER</u> enter your PIN to receive money!
+                            </div>
+                            <div class="awareness-dos-donts">
+                                <div class="dont-list">
+                                    <span class="list-label red-text">❌ Scammer Tactics:</span>
+                                    <ul>
+                                        <li>"Scan this QR code to claim ₹3,000 lottery"</li>
+                                        <li>"Enter UPI PIN to verify your account for refund"</li>
+                                        <li>Sending a Collect Request of ₹10,000</li>
+                                    </ul>
+                                </div>
+                                <div class="do-list">
+                                    <span class="list-label green-text">✅ What You Must Do:</span>
+                                    <ul>
+                                        <li>Decline collect requests from strangers immediately</li>
+                                        <li>Report the VPA (UPI ID) inside your banking app</li>
+                                        <li>Remember: Money credits directly without any PIN</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Electricity Bill APK Scam -->
+                        <div class="card awareness-card" data-category="apk">
+                            <div class="awareness-card-top">
+                                <span class="awareness-tag red">Surging Vector</span>
+                                <span class="awareness-cat">Malicious APKs</span>
+                            </div>
+                            <h3 class="awareness-title">Fake Electricity Bill &amp; Bijli Cut SMS</h3>
+                            <p class="awareness-summary">
+                                You receive an SMS: <em>"Dear Consumer, your electricity power will be disconnected tonight at 9:30 PM due to unpaid bill. Immediately contact power officer on 98XXXXXXXX and install update app."</em>
+                            </p>
+                            <div class="awareness-callout red-callout">
+                                <strong>The Danger:</strong> The link downloads an `.apk` file (Android package). Once installed, it steals your SMS OTPs and gives scammers full remote access to your phone!
+                            </div>
+                            <div class="awareness-dos-donts">
+                                <div class="dont-list">
+                                    <span class="list-label red-text">❌ Red Flags:</span>
+                                    <ul>
+                                        <li>Sent from personal 10-digit mobile numbers (+91...)</li>
+                                        <li>Asks to download APK files or install AnyDesk / RustDesk</li>
+                                        <li>Urgent deadline ("power cut at 9:30 PM tonight")</li>
+                                    </ul>
+                                </div>
+                                <div class="do-list">
+                                    <span class="list-label green-text">✅ What You Must Do:</span>
+                                    <ul>
+                                        <li>Never install `.apk` files sent over SMS or WhatsApp</li>
+                                        <li>Pay electricity bills only via official state Discom apps or portals</li>
+                                        <li>Verify your bill status directly on your electricity board website</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Digital Arrest Scam -->
+                        <div class="card awareness-card" data-category="impersonation">
+                            <div class="awareness-card-top">
+                                <span class="awareness-tag red">Severe Intimidation</span>
+                                <span class="awareness-cat">Digital Arrest</span>
+                            </div>
+                            <h3 class="awareness-title">The "Digital Arrest" &amp; Fake Police Video Call</h3>
+                            <p class="awareness-summary">
+                                Victims receive calls claiming a parcel containing illegal passports/narcotics was sent in their name to Cambodia/Taiwan. Fraudsters stage fake police stations on Skype/WhatsApp video calls.
+                            </p>
+                            <div class="awareness-callout red-callout">
+                                <strong>Government Notice:</strong> Indian law enforcement agencies (CBI, ED, Police, NIA) <strong>NEVER</strong> conduct arrests via video calls, nor do they demand money transfers for verification!
+                            </div>
+                            <div class="awareness-dos-donts">
+                                <div class="dont-list">
+                                    <span class="list-label red-text">❌ Scammer Tactics:</span>
+                                    <ul>
+                                        <li>Fake uniforms, badges, and forged court arrest warrants</li>
+                                        <li>Threatening you not to disconnect or talk to family</li>
+                                        <li>Demanding RTGS transfers to "Supreme Court verification accounts"</li>
+                                    </ul>
+                                </div>
+                                <div class="do-list">
+                                    <span class="list-label green-text">✅ What You Must Do:</span>
+                                    <ul>
+                                        <li>Immediately disconnect the video call</li>
+                                        <li>Dial <strong>1930</strong> or your local police station to report</li>
+                                        <li>Remember: There is no legal concept called "Digital Arrest" in India</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Fake Bank KYC -->
+                        <div class="card awareness-card" data-category="banking">
+                            <div class="awareness-card-top">
+                                <span class="awareness-tag orange">Persistent</span>
+                                <span class="awareness-cat">Banking &amp; KYC</span>
+                            </div>
+                            <h3 class="awareness-title">SBI YONO &amp; Bank Account Blocked Phishing</h3>
+                            <p class="awareness-summary">
+                                SMS claims: <em>"Dear SBI/HDFC User, your account is suspended today due to expired PAN/KYC. Click http://sbi-kyc-update.xyz to update within 24 hours."</em>
+                            </p>
+                            <div class="awareness-callout orange-callout">
+                                <strong>How it works:</strong> The fake website looks identical to internet banking and records your username, password, profile password, and OTP in real-time.
+                            </div>
+                            <div class="awareness-dos-donts">
+                                <div class="dont-list">
+                                    <span class="list-label red-text">❌ Warning Signs:</span>
+                                    <ul>
+                                        <li>Links with weird domains (.xyz, .top, .buzz, .info)</li>
+                                        <li>SMS from unknown +91 numbers instead of official Bank Sender IDs (e.g. SBIBNK)</li>
+                                        <li>Demands immediate entry of PAN, Aadhaar, and debit card PIN</li>
+                                    </ul>
+                                </div>
+                                <div class="do-list">
+                                    <span class="list-label green-text">✅ What You Must Do:</span>
+                                    <ul>
+                                        <li>Always type your bank URL manually into the browser</li>
+                                        <li>Banks never ask you to update KYC via third-party SMS links</li>
+                                        <li>Visit your home branch for any legitimate KYC update</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Telegram Work from Home Scams -->
+                        <div class="card awareness-card" data-category="jobs">
+                            <div class="awareness-card-top">
+                                <span class="awareness-tag yellow">Targeting Youth</span>
+                                <span class="awareness-cat">Jobs &amp; Crypto</span>
+                            </div>
+                            <h3 class="awareness-title">Telegram "Like YouTube Videos &amp; Earn ₹5,000" Scam</h3>
+                            <p class="awareness-summary">
+                                Starts with a WhatsApp message offering ₹150 for liking 3 YouTube videos or Google Maps reviews. Once trust is built, they invite you to a Telegram VIP group with "pre-paid investment tasks".
+                            </p>
+                            <div class="awareness-callout yellow-callout">
+                                <strong>The Trap:</strong> They show fake virtual balances growing, but when you try to withdraw your money, they demand 30% "GST tax" or "liquidity fee" and freeze everything.
+                            </div>
+                            <div class="awareness-dos-donts">
+                                <div class="dont-list">
+                                    <span class="list-label red-text">❌ Red Flags:</span>
+                                    <ul>
+                                        <li>Promises of high daily income (₹3,000–₹10,000/day) for trivial tasks</li>
+                                        <li>Being shifted from WhatsApp to private Telegram channels</li>
+                                        <li>Asking you to deposit money to "unlock higher tier returns"</li>
+                                    </ul>
+                                </div>
+                                <div class="do-list">
+                                    <span class="list-label green-text">✅ What You Must Do:</span>
+                                    <ul>
+                                        <li>Never pay money to get a job or task payout</li>
+                                        <li>Block unknown international numbers (+84, +62, +234, +1)</li>
+                                        <li>Report fraud Telegram groups immediately</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: Courier / India Post Parcel Scam -->
+                        <div class="card awareness-card" data-category="banking">
+                            <div class="awareness-card-top">
+                                <span class="awareness-tag yellow">Fast Growing</span>
+                                <span class="awareness-cat">E-Commerce &amp; Postal</span>
+                            </div>
+                            <h3 class="awareness-title">Fake India Post / Courier "Address Incomplete" SMS</h3>
+                            <p class="awareness-summary">
+                                SMS claims: <em>"India Post: Your package cannot be delivered due to incomplete address. Please update address and pay ₹25 re-delivery fee at http://indiapost-update.click"</em>
+                            </p>
+                            <div class="awareness-callout yellow-callout">
+                                <strong>The Clone:</strong> The ₹25 payment page captures your 16-digit debit/credit card number, CVV, expiry date, and OTP to siphon thousands of rupees!
+                            </div>
+                            <div class="awareness-dos-donts">
+                                <div class="dont-list">
+                                    <span class="list-label red-text">❌ Red Flags:</span>
+                                    <ul>
+                                        <li>URL is not <strong>indiapost.gov.in</strong></li>
+                                        <li>Sent to people who have not ordered any postal parcel</li>
+                                        <li>Payment page asks for complete ATM PIN or card details</li>
+                                    </ul>
+                                </div>
+                                <div class="do-list">
+                                    <span class="list-label green-text">✅ What You Must Do:</span>
+                                    <ul>
+                                        <li>Check tracking numbers only on official <strong>indiapost.gov.in</strong></li>
+                                        <li>India Post never sends random address update SMS with fee links</li>
+                                        <li>Never enter card CVV or OTP on links received via SMS</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Safety Quick Checklist for Senior Citizens & Families -->
+                    <div class="card checklist-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">🛡️ Golden Rules of Indian Digital Safety</h3>
+                                <p class="card-subtitle">Keep this 4-step checklist handy for parents, grandparents, and students</p>
+                            </div>
+                        </div>
+                        <div class="checklist-grid">
+                            <div class="check-box">
+                                <div class="check-number">1</div>
+                                <div class="check-body">
+                                    <h4>UPI PIN = Only for Paying Out</h4>
+                                    <p>Never enter your UPI PIN to claim cashback, receive awards, or accept an OLX payment. Receiving money requires zero action from your side.</p>
+                                </div>
+                            </div>
+                            <div class="check-box">
+                                <div class="check-number">2</div>
+                                <div class="check-body">
+                                    <h4>No APK Downloads via WhatsApp/SMS</h4>
+                                    <p>Never install `.apk` files or remote-control apps like AnyDesk or TeamViewer QuickSupport at the instruction of any caller.</p>
+                                </div>
+                            </div>
+                            <div class="check-box">
+                                <div class="check-number">3</div>
+                                <div class="check-body">
+                                    <h4>Police Never Conduct Video Arrests</h4>
+                                    <p>CBI, Police, and Customs will never call you on Skype, FaceTime, or WhatsApp to place you under "Digital Arrest". Disconnect instantly.</p>
+                                </div>
+                            </div>
+                            <div class="check-box">
+                                <div class="check-number">4</div>
+                                <div class="check-body">
+                                    <h4>Golden Hour Helpline: Call 1930</h4>
+                                    <p>If defrauded, immediately report within the golden hour to <strong>1930</strong> (National Cybercrime Reporting) so the bank can freeze the outflow.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- ============================================================== -->
+            <!-- SECTION 6: ABOUT SCAMSATHI BHARAT AI                           -->
+            <!-- ============================================================== -->
+            <section id="about" class="page-view hidden">
+                <div class="about-container">
+                    
+                    <div class="card about-hero-card">
+                        <div class="about-hero-grid">
+                            <div>
+                                <div class="badge badge-primary">College Hackathon Submission</div>
+                                <h2 class="about-title">ScamSathi Bharat AI</h2>
+                                <p class="about-tagline">"Think Before You Click. Stay Safe Before You Pay."</p>
+                                <p class="about-text">
+                                    Built specifically for <strong>Problem Statement #02: PhishShield AI</strong>, ScamSathi Bharat AI is a specialized cybersecurity and digital fraud defense platform engineered for India’s unique digital payment ecosystem.
+                                </p>
+                                <p class="about-text">
+                                    With over 800 million smartphone users in India and UPI surpassing 14 billion monthly transactions, cybercriminals increasingly exploit non-tech-savvy citizens, students, and seniors through localized psychological coercion, fake APKs, and deceptive payment traps.
+                                </p>
+                            </div>
+                            <div class="about-stats-box">
+                                <div class="about-stat">
+                                    <span class="stat-num">800M+</span>
+                                    <span class="stat-lbl">Digital Citizens at Risk</span>
+                                </div>
+                                <div class="about-stat">
+                                    <span class="stat-num">₹1,750+ Cr</span>
+                                    <span class="stat-lbl">Cyber Fraud Reported in 2024</span>
+                                </div>
+                                <div class="about-stat">
+                                    <span class="stat-num">1930</span>
+                                    <span class="stat-lbl">National Cyber Helpline</span>
+                                </div>
+                                <div class="about-stat">
+                                    <span class="stat-num">100%</span>
+                                    <span class="stat-lbl">Explainable Heuristics</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Architecture Overview -->
+                    <div class="card architecture-card">
+                        <h3 class="card-title">Technical Architecture &amp; Phased Roadmap</h3>
+                        <p class="card-subtitle">Engineered with privacy, modularity, and rapid Indic language expansion in mind.</p>
+                        
+                        <div class="arch-flow">
+                            <div class="arch-node">
+                                <div class="arch-badge">Input Ingestion</div>
+                                <h4>Air-Gapped Client</h4>
+                                <p>Captures SMS text or URLs. Sanitizes input to mask OTPs, credit card numbers, and banking credentials locally.</p>
+                            </div>
+                            <div class="arch-arrow">&rarr;</div>
+                            <div class="arch-node active">
+                                <div class="arch-badge">Phase 1: Active</div>
+                                <h4>Heuristic Rule Engine</h4>
+                                <p>Evaluates 40+ weighted Indian scam heuristics (UPI inversion, Bijli APKs, Digital Arrest, brand spoofing, sketchy TLDs).</p>
+                            </div>
+                            <div class="arch-arrow">&rarr;</div>
+                            <div class="arch-node">
+                                <div class="arch-badge">Phase 2: Roadmap</div>
+                                <h4>IndicBERT / ML Model</h4>
+                                <p>Cloud API pipeline designed to classify zero-day scams in Hindi, Marathi, Tamil, Bengali, Telugu, and Hinglish.</p>
+                            </div>
+                            <div class="arch-arrow">&rarr;</div>
+                            <div class="arch-node">
+                                <div class="arch-badge">User Output</div>
+                                <h4>Explainable Advisory</h4>
+                                <p>Provides plain-language explanations and immediate actionable protocols (Helpline 1930, bank report, block sender).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy & Disclaimer Box -->
+                    <div class="card disclaimer-card">
+                        <div class="disclaimer-header">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#f59e0b" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            <h4>Hackathon Demonstration Notice &amp; Privacy Assurance</h4>
+                        </div>
+                        <p>
+                            <strong>Demonstration Engine:</strong> This phase currently runs an intelligent, locally executed heuristic and rule-based evaluation suite. While carefully tuned for authentic Indian threat patterns, it is a hackathon prototype designed to demonstrate the user experience and explainability framework.
+                        </p>
+                        <p>
+                            <strong>Zero-Data Retention Policy:</strong> ScamSathi does not transmit or store raw sensitive messages, passwords, PINs, or banking details to any external server. All analysis occurs locally within the browser session sandbox.
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+</div>
+
+<!-- ============================================================== -->
+<!-- MODALS                                                         -->
+<!-- ============================================================== -->
+
+<!-- Scan Details Modal -->
+<div class="modal-backdrop hidden" id="detailsModal" onclick="closeDetailsModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div>
+                <h3 class="modal-title" id="modalTitle">Scan Inspection Details</h3>
+                <span class="modal-time" id="modalTimestamp">Audit Record</span>
+            </div>
+            <button class="modal-close-btn" onclick="closeDetailsModal()" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Populated dynamically -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeDetailsModal()">Close Inspection</button>
+        </div>
+    </div>
+</div>
+
+<!-- Clear History Confirmation Modal -->
+<div class="modal-backdrop hidden" id="clearModal" onclick="closeClearModal(event)">
+    <div class="modal-card modal-sm" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 class="modal-title red-text">Clear Scan Audit Log?</h3>
+            <button class="modal-close-btn" onclick="closeClearModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete all stored scan history? This action cannot be undone and will reset your dashboard metrics.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeClearModal()">Cancel</button>
+            <button class="btn btn-danger" onclick="executeClearHistory()">Yes, Clear All Logs</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification Container -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

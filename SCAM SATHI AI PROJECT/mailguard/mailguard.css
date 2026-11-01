@@ -1,0 +1,555 @@
+/* ============================================================
+   ScamSathi MailGuard AI — Responsive Stylesheet
+   Mobile-first, desktop-enhanced.
+   Breakpoints: base=mobile, 640px=tablet, 1024px=desktop
+   ============================================================ */
+
+/* ── Reset & Custom Properties ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:            #0b1120;
+  --bg-card:       #111827;
+  --bg-card2:      #1a2338;
+  --bg-input:      #0f1a2e;
+  --border:        rgba(255,255,255,0.08);
+  --border-focus:  #06b6d4;
+
+  --text-primary:  #f1f5f9;
+  --text-muted:    #94a3b8;
+  --text-xs:       #64748b;
+
+  --accent-cyan:   #06b6d4;
+  --accent-violet: #7c3aed;
+  --accent-cyan-d: #0891b2;
+
+  --risk-low:      #10b981;
+  --risk-sus:      #f59e0b;
+  --risk-high:     #ef4444;
+  --risk-crit:     #7c3aed;
+
+  --radius:        10px;
+  --radius-sm:     6px;
+  --shadow:        0 4px 24px rgba(0,0,0,0.4);
+  --transition:    0.2s ease;
+  --font:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+/* ── Header ── */
+.mg-header {
+  background: linear-gradient(135deg, #0f1729 0%, #1a1040 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem;
+}
+.mg-header__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+@media (min-width: 640px) {
+  .mg-header__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.mg-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.mg-logo__shield {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(6,182,212,0.4));
+}
+.mg-logo__name {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #06b6d4, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+.mg-logo__sub {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.mg-header__tagline {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── Main layout ── */
+.mg-main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 1.25rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .mg-main {
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
+
+/* ── Card ── */
+.mg-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+@media (min-width: 640px) {
+  .mg-card { padding: 1.75rem; }
+}
+
+.mg-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.mg-card__desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+/* ── Form fields ── */
+.mg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+.mg-field--row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+@media (min-width: 480px) {
+  .mg-field--row { grid-template-columns: 1fr 1fr; }
+}
+
+.mg-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+.mg-label__hint {
+  font-weight: 400;
+  color: var(--text-xs);
+  margin-left: 0.25rem;
+}
+
+.mg-input,
+.mg-textarea {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 0.88rem;
+  padding: 0.65rem 0.85rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  resize: vertical;
+}
+.mg-input:focus,
+.mg-textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(6,182,212,0.15);
+}
+.mg-input::placeholder,
+.mg-textarea::placeholder { color: var(--text-xs); }
+.mg-textarea--sm { resize: none; }
+.mg-char-count {
+  font-size: 0.72rem;
+  color: var(--text-xs);
+  text-align: right;
+}
+
+/* ── Presets ── */
+.mg-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.mg-presets__label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.mg-presets__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.mg-chip {
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.28rem 0.75rem;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.mg-chip:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+.mg-chip--safe { border-color: var(--risk-low); color: var(--risk-low); }
+.mg-chip--safe:hover { background: rgba(16,185,129,0.08); }
+
+/* ── Buttons ── */
+.mg-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+.mg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 0.7rem 1.4rem;
+  transition: all var(--transition);
+}
+.mg-btn--primary {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(6,182,212,0.3);
+}
+.mg-btn--primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 20px rgba(6,182,212,0.5);
+  transform: translateY(-1px);
+}
+.mg-btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.mg-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.mg-btn--ghost:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+/* ── Result panel states ── */
+.mg-result-panel {
+  position: sticky;
+  top: 1rem;
+}
+.mg-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+.mg-empty-state svg {
+  width: 56px;
+  height: 56px;
+  opacity: 0.25;
+}
+.mg-empty-state p { font-size: 0.88rem; max-width: 260px; }
+
+.mg-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+.mg-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent-cyan);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hidden { display: none !important; }
+
+/* ── Risk Score Ring ── */
+.mg-score-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.mg-score-ring {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+}
+.mg-score-ring svg {
+  transform: rotate(-90deg);
+  width: 90px;
+  height: 90px;
+}
+.mg-score-ring__bg {
+  fill: none;
+  stroke: var(--bg-card2);
+  stroke-width: 8;
+}
+.mg-score-ring__fill {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  transition: stroke-dashoffset 0.8s ease, stroke 0.3s;
+}
+.mg-score-ring__num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.mg-score-ring__label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mg-score-meta { flex: 1; min-width: 0; }
+.mg-risk-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  margin-bottom: 0.4rem;
+}
+.mg-score-category {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.mg-score-explanation {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Sender card ── */
+.mg-section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin: 1.1rem 0 0.6rem;
+}
+.mg-sender-card {
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.mg-sender-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.mg-sender-info { flex: 1; min-width: 0; }
+.mg-sender-name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mg-sender-email { color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mg-sender-domain-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Signals list ── */
+.mg-signals-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mg-signal-item {
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: 0.82rem;
+}
+.mg-signal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+.mg-signal-name { font-weight: 700; }
+.mg-signal-desc { color: var(--text-muted); font-size: 0.78rem; }
+
+/* ── URL findings ── */
+.mg-url-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mg-url-item {
+  background: var(--bg-card2);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.8rem;
+}
+.mg-url-href {
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.mg-url-risk { font-size: 0.72rem; font-weight: 700; }
+.mg-url-reasons { color: var(--text-muted); font-size: 0.75rem; margin-top: 0.25rem; }
+
+/* ── Actions ── */
+.mg-actions-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.mg-action-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  font-size: 0.83rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.mg-action-item:last-child { border-bottom: none; }
+.mg-action-bullet { font-size: 0.9rem; flex-shrink: 0; }
+
+/* ── Risk colour helpers ── */
+.risk-low    { color: var(--risk-low);  }
+.risk-sus    { color: var(--risk-sus);  }
+.risk-high   { color: var(--risk-high); }
+.risk-crit   { color: var(--risk-crit); }
+
+.bg-low  { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); }
+.bg-sus  { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); }
+.bg-high { background: rgba(239,68,68,0.15);  border: 1px solid rgba(239,68,68,0.3);  }
+.bg-crit { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); }
+
+/* ── Footer ── */
+.mg-footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 0.9rem 1rem;
+  font-size: 0.75rem;
+  color: var(--text-xs);
+}
+.mg-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-items: flex-start;
+}
+@media (min-width: 640px) {
+  .mg-footer__inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* ── Animations ── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mg-results { animation: fadeSlideIn 0.3s ease; }
+
+/* ── Scrollbar (webkit) ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-xs); }
+

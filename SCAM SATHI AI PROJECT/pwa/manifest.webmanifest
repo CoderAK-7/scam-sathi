@@ -1,0 +1,38 @@
+{
+  "name": "ScamSathi AI — Universal Scam Guardian",
+  "short_name": "ScamSathi",
+  "description": "Mobile-first AI Scam Detection Ecosystem for WhatsApp, Email & SMS",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070c18",
+  "theme_color": "#00f2fe",
+  "categories": [
+    "security",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "share_target": {
+    "action": "./index.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
+

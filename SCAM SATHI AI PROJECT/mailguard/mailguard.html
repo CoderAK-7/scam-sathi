@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScamSathi MailGuard — Email Scam Detector</title>
+  <link rel="stylesheet" href="mailguard.css" />
+</head>
+<body>
+
+  <!-- ───────────────────────── HEADER ───────────────────────── -->
+  <header class="mg-header">
+    <div class="mg-header__inner">
+      <div class="mg-logo">
+        <svg class="mg-logo__shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <span class="mg-logo__name">ScamSathi</span>
+          <span class="mg-logo__sub">MailGuard AI</span>
+        </div>
+      </div>
+      <p class="mg-header__tagline">Desktop Email Scam Detector &mdash; 100% Local &amp; Private</p>
+    </div>
+  </header>
+
+  <!-- ───────────────────────── MAIN ───────────────────────── -->
+  <main class="mg-main">
+
+    <!-- ── LEFT / TOP PANEL: INPUT FORM ── -->
+    <section class="mg-card mg-input-panel" aria-label="Email input">
+      <h2 class="mg-card__title">
+        <span aria-hidden="true">📧</span> Paste Email Content
+      </h2>
+      <p class="mg-card__desc">
+        Copy the suspicious email and paste each field below. Analysis runs <strong>entirely in your browser</strong> — nothing is sent to any server.
+      </p>
+
+      <form id="emailForm" novalidate>
+        <!-- Subject -->
+        <div class="mg-field">
+          <label class="mg-label" for="emailSubject">Subject Line</label>
+          <input
+            type="text"
+            id="emailSubject"
+            class="mg-input"
+            placeholder="e.g. URGENT: Your SBI account will be suspended"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Sender -->
+        <div class="mg-field mg-field--row">
+          <div class="mg-field">
+            <label class="mg-label" for="senderName">Sender Name</label>
+            <input
+              type="text"
+              id="senderName"
+              class="mg-input"
+              placeholder="e.g. SBI Bank Support"
+              autocomplete="off"
+            />
+          </div>
+          <div class="mg-field">
+            <label class="mg-label" for="senderEmail">Sender Email</label>
+            <input
+              type="email"
+              id="senderEmail"
+              class="mg-input"
+              placeholder="e.g. support@sbi-alert.xyz"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="mg-field">
+          <label class="mg-label" for="emailBody">Email Body</label>
+          <textarea
+            id="emailBody"
+            class="mg-textarea"
+            rows="8"
+            placeholder="Paste the full email body here…"
+          ></textarea>
+          <div class="mg-char-count" id="bodyCharCount">0 characters</div>
+        </div>
+
+        <!-- Links -->
+        <div class="mg-field">
+          <label class="mg-label" for="emailLinks">
+            Links Found in Email
+            <span class="mg-label__hint">(one per line, optional)</span>
+          </label>
+          <textarea
+            id="emailLinks"
+            class="mg-textarea mg-textarea--sm"
+            rows="3"
+            placeholder="https://sbi-kyc-update.top/verify&#10;https://bit.ly/abc123"
+          ></textarea>
+        </div>
+
+        <!-- Presets -->
+        <div class="mg-presets">
+          <span class="mg-presets__label">📋 Quick Test:</span>
+          <div class="mg-presets__chips">
+            <button type="button" class="mg-chip" data-preset="kyc">🏦 Fake KYC</button>
+            <button type="button" class="mg-chip" data-preset="lottery">🎰 Lottery Scam</button>
+            <button type="button" class="mg-chip" data-preset="job">💼 Fake Job</button>
+            <button type="button" class="mg-chip" data-preset="phishing">🔑 Password Reset</button>
+            <button type="button" class="mg-chip mg-chip--safe" data-preset="safe">✅ Normal Email</button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="mg-form-actions">
+          <button type="submit" class="mg-btn mg-btn--primary" id="analyzeBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            Analyze Email
+          </button>
+          <button type="button" class="mg-btn mg-btn--ghost" id="clearBtn">
+            ↺ Clear All
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ── RIGHT / BOTTOM PANEL: RESULTS ── -->
+    <section class="mg-card mg-result-panel" aria-label="Analysis results" aria-live="polite">
+
+      <!-- Empty state -->
+      <div class="mg-empty-state" id="emptyState">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <p>Fill in the email details and click <strong>Analyze Email</strong> to see the security report.</p>
+      </div>
+
+      <!-- Loading state -->
+      <div class="mg-loading hidden" id="loadingState">
+        <div class="mg-spinner" aria-label="Analyzing…"></div>
+        <p>Analyzing email…</p>
+      </div>
+
+      <!-- Results (injected by JS) -->
+      <div class="mg-results hidden" id="resultsState"></div>
+
+    </section>
+  </main>
+
+  <!-- ───────────────────────── FOOTER ───────────────────────── -->
+  <footer class="mg-footer">
+    <div class="mg-footer__inner">
+      <span>ScamSathi MailGuard AI &mdash; Browser-only &middot; Zero telemetry &middot; Open Innovation Hackathon</span>
+      <span>🛡️ National Cyber Helpline: <strong>1930</strong> &middot; cybercrime.gov.in</span>
+    </div>
+  </footer>
+
+  <!-- Detection engine + page logic -->
+  <script src="../extension/detection/email-analyzer.js"></script>
+  <script src="../extension/detection/url-analyzer.js"></script>
+  <script src="mailguard.js"></script>
+
+</body>
+</html>
+

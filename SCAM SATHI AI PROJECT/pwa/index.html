@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ScamSathi AI — Universal Mobile Scam Guardian</title>
+    
+    <!-- PWA Metadata & iOS Support -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#070c18">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ScamSathi">
+    <link rel="apple-touch-icon" href="icons/icon128.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="app.css">
+</head>
+<body class="theme-dark">
+
+    <div class="app-shell">
+        <!-- Top App Bar -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="brand-shield">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4" stroke="#00f2fe" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">ScamSathi <span class="badge-ai">AI</span></h1>
+                    <span class="brand-status">Universal Scam Guardian</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button type="button" class="icon-btn" id="installPwaBtn" style="display:none;" title="Install ScamSathi App">
+                    <span>📲 Install</span>
+                </button>
+                <button type="button" class="icon-btn" id="openSettingsBtn" title="Settings">
+                    ⚙️
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Content Area -->
+        <main class="app-main" id="mainContainer">
+
+            <!-- 1. OVERALL SECURITY STATUS (HOME) -->
+            <section class="view-panel active" id="view-dashboard">
+                <!-- Device Status Hero -->
+                <div class="security-hero-card">
+                    <div class="shield-pulse-ring">
+                        <span class="hero-icon">🛡️</span>
+                    </div>
+                    <div class="hero-content">
+                        <div class="shield-state-tag" id="systemShieldTag">Active Real-Time Shield</div>
+                        <h2 class="hero-headline">Protected &amp; Air-Gapped</h2>
+                        <p class="hero-subtext">Local heuristic AI inspects incoming text without sending private messages to any remote server.</p>
+                    </div>
+                </div>
+
+                <!-- Emergency Helpline Banner -->
+                <div class="helpline-alert-banner">
+                    <div class="helpline-icon">🚨</div>
+                    <div class="helpline-text">
+                        <strong>Financial Fraud Helpline: Dial 1930</strong>
+                        <span>Report instantly to National Cyber Crime Reporting Portal (cybercrime.gov.in)</span>
+                    </div>
+                </div>
+
+                <!-- Quick Metric Counters -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-num" id="statTotalScans">0</div>
+                        <div class="metric-lbl">Total Scanned</div>
+                    </div>
+                    <div class="metric-card danger">
+                        <div class="metric-num" id="statHighThreats">0</div>
+                        <div class="metric-lbl">High Threats</div>
+                    </div>
+                    <div class="metric-card warning">
+                        <div class="metric-num" id="statReviewAlerts">0</div>
+                        <div class="metric-lbl">Suspicious</div>
+                    </div>
+                    <div class="metric-card safe">
+                        <div class="metric-num" id="statSafePass">0</div>
+                        <div class="metric-lbl">Safe Passes</div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Grid -->
+                <h3 class="section-title">Rapid Protection Workflows</h3>
+                <div class="quick-action-grid">
+                    <button type="button" class="action-card" data-switch-view="view-scan-message">
+                        <span class="action-card-icon">💬</span>
+                        <div class="action-card-info">
+                            <strong>Scan Message</strong>
+                            <span>WhatsApp, Telegram &amp; SMS text</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="action-card" data-switch-view="view-scan-email">
+                        <span class="action-card-icon">📧</span>
+                        <div class="action-card-info">
+                            <strong>Scan Email</strong>
+                            <span>Gmail &amp; Outlook phishing check</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="action-card" data-switch-view="view-scan-sms">
+                        <span class="action-card-icon">📱</span>
+                        <div class="action-card-info">
+                            <strong>Scan SMS</strong>
+                            <span>DLT Header &amp; Fake Bank notices</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="action-card" data-switch-view="view-whatsapp">
+                        <span class="action-card-icon">⚡</span>
+                        <div class="action-card-info">
+                            <strong>WhatsApp Share</strong>
+                            <span>Mobile forwarding scan workflow</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. SCAN MESSAGE -->
+            <section class="view-panel" id="view-scan-message">
+                <div class="panel-header">
+                    <h2>💬 Message Threat Scanner</h2>
+                    <p>Evaluates UPI PIN reverse-demands, Bijli APK malware, and job task scams.</p>
+                </div>
+
+                <!-- Preset Chips -->
+                <div class="preset-scroll-row">
+                    <span class="preset-label">Test Case:</span>
+                    <button type="button" class="chip-btn" data-msg-preset="bijli">⚡ Bijli Cutoff</button>
+                    <button type="button" class="chip-btn" data-msg-preset="upi">💰 UPI PIN Trap</button>
+                    <button type="button" class="chip-btn" data-msg-preset="arrest">👮 Digital Arrest</button>
+                    <button type="button" class="chip-btn" data-msg-preset="safe">✅ Safe Bank SMS</button>
+                </div>
+
+                <div class="input-card">
+                    <textarea id="messageTextInput" class="app-textarea" rows="4" placeholder="Paste WhatsApp message, chat forward or unknown text to inspect..."></textarea>
+                    <div class="input-actions-bar">
+                        <button type="button" class="btn-text-action" id="btnPasteMsg">📋 Paste Clipboard</button>
+                        <button type="button" class="btn-text-action" id="btnClearMsg">✖ Clear</button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primary-action" id="btnRunMsgScan">
+                    🛡️ Analyze Message with ScamSathi AI
+                </button>
+
+                <!-- Result Card -->
+                <div class="scan-verdict-box" id="msgVerdictBox" style="display:none;"></div>
+            </section>
+
+            <!-- 3. SCAN EMAIL -->
+            <section class="view-panel" id="view-scan-email">
+                <div class="panel-header">
+                    <h2>📧 Email Phishing Inspector</h2>
+                    <p>Detects sender address spoofing, fake KYC threats and deceptive links.</p>
+                </div>
+
+                <div class="preset-scroll-row">
+                    <span class="preset-label">Test Case:</span>
+                    <button type="button" class="chip-btn" data-email-preset="kyc">🏦 Fake SBI KYC</button>
+                    <button type="button" class="chip-btn" data-email-preset="lottery">🎰 Lottery Prize</button>
+                    <button type="button" class="chip-btn" data-email-preset="job">💼 Work From Home</button>
+                </div>
+
+                <div class="input-card">
+                    <label class="input-label" for="emailSubjectInput">Subject Line</label>
+                    <input type="text" id="emailSubjectInput" class="app-input" placeholder="e.g. URGENT: Your bank account is suspended">
+                    
+                    <div class="input-row-half" style="margin-top:8px;">
+                        <div>
+                            <label class="input-label" for="emailSenderNameInput">Sender Name</label>
+                            <input type="text" id="emailSenderNameInput" class="app-input" placeholder="e.g. SBI Security">
+                        </div>
+                        <div>
+                            <label class="input-label" for="emailSenderAddrInput">Sender Email</label>
+                            <input type="email" id="emailSenderAddrInput" class="app-input" placeholder="e.g. alert@sbi-kyc.top">
+                        </div>
+                    </div>
+
+                    <label class="input-label" for="emailBodyInput" style="margin-top:8px;">Email Body Content</label>
+                    <textarea id="emailBodyInput" class="app-textarea" rows="4" placeholder="Paste email content here..."></textarea>
+                </div>
+
+                <button type="button" class="btn-primary-action" id="btnRunEmailScan">
+                    🛡️ Inspect Email Security
+                </button>
+
+                <div class="scan-verdict-box" id="emailVerdictBox" style="display:none;"></div>
+            </section>
+
+            <!-- 4. SCAN SMS -->
+            <section class="view-panel" id="view-scan-sms">
+                <div class="panel-header">
+                    <h2>📱 SMS Fraud &amp; DLT Verifier</h2>
+                    <p>Verifies Indian SMS alphanumeric headers (e.g. AD-HDFCBK) vs personal phone spoofing.</p>
+                </div>
+
+                <div class="preset-scroll-row">
+                    <span class="preset-label">Test Case:</span>
+                    <button type="button" class="chip-btn" data-sms-preset="challan">🚗 Fake e-Challan</button>
+                    <button type="button" class="chip-btn" data-sms-preset="sim">📶 SIM Block Threat</button>
+                    <button type="button" class="chip-btn" data-sms-preset="pan">🆔 PAN Incomplete</button>
+                </div>
+
+                <div class="input-card">
+                    <label class="input-label" for="smsSenderHeaderInput">Sender Header or Number</label>
+                    <input type="text" id="smsSenderHeaderInput" class="app-input" placeholder="e.g. +919876543210 or VM-SBIINB">
+
+                    <label class="input-label" for="smsBodyInput" style="margin-top:8px;">SMS Text Content</label>
+                    <textarea id="smsBodyInput" class="app-textarea" rows="4" placeholder="Paste received SMS message..."></textarea>
+                </div>
+
+                <button type="button" class="btn-primary-action" id="btnRunSmsScan">
+                    🛡️ Scan SMS Security
+                </button>
+
+                <div class="scan-verdict-box" id="smsVerdictBox" style="display:none;"></div>
+            </section>
+
+            <!-- 5. WHATSAPP PROTECTION WORKFLOW -->
+            <section class="view-panel" id="view-whatsapp">
+                <div class="panel-header">
+                    <h2>⚡ WhatsApp Security Ecosystem</h2>
+                    <p>Transparent protection across desktop and mobile.</p>
+                </div>
+
+                <!-- Desktop vs Mobile info card -->
+                <div class="platform-guide-card">
+                    <div class="platform-guide-header">
+                        <span class="guide-badge-icon">💻</span>
+                        <strong>Desktop: WhatsApp Web</strong>
+                    </div>
+                    <p class="guide-text">
+                        Use the <strong>ScamSathi Universal Scam Guardian</strong> Chrome Extension on <code>web.whatsapp.com</code>. It observes newly arrived visible chat messages and flags them directly on-screen with zero copy-paste.
+                    </p>
+                </div>
+
+                <div class="platform-guide-card" style="margin-top:12px;">
+                    <div class="platform-guide-header">
+                        <span class="guide-badge-icon">📱</span>
+                        <strong>Mobile: Share to ScamSathi</strong>
+                    </div>
+                    <p class="guide-text">
+                        Android and iOS sandbox restrictions prevent any browser app from reading private WhatsApp chats in the background. To inspect a suspicious message:
+                    </p>
+                    <ol class="step-guide-list">
+                        <li>Long press the suspicious message in WhatsApp.</li>
+                        <li>Tap <strong>Forward / Share</strong> &rarr; Select <strong>ScamSathi AI</strong> (or Copy Text).</li>
+                        <li>Tap <strong>Scan Shared Text</strong> below for instant heuristic analysis.</li>
+                    </ol>
+
+                    <button type="button" class="btn-primary-action" id="btnWhatsAppQuickPaste" style="margin-top:10px;">
+                        📋 Paste &amp; Scan WhatsApp Message Now
+                    </button>
+                </div>
+            </section>
+
+            <!-- 6. SCAN HISTORY -->
+            <section class="view-panel" id="view-history">
+                <div class="panel-header-row">
+                    <div>
+                        <h2>📜 Local Scan History</h2>
+                        <p>Air-gapped records stored safely on this device.</p>
+                    </div>
+                    <button type="button" class="btn-text-danger" id="btnClearHistory">Clear All</button>
+                </div>
+
+                <div class="history-list" id="historyItemsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+            <!-- 7. THREAT ALERTS & AWARENESS -->
+            <section class="view-panel" id="view-alerts">
+                <div class="panel-header">
+                    <h2>🚨 Live Indian Threat Advisories</h2>
+                    <p>Official awareness bulletin for common social engineering tactics.</p>
+                </div>
+
+                <div class="advisory-card critical">
+                    <div class="advisory-title">⚠️ Digital Arrest Video Call Extortion</div>
+                    <p class="advisory-desc">Scammers dress as police/CBI on WhatsApp/Skype and claim narcotics were found in your parcel, demanding "verification funds". Remember: Indian police NEVER conducts online arrest or bail via video calls.</p>
+                </div>
+
+                <div class="advisory-card high">
+                    <div class="advisory-title">⚡ Bijli Cutoff APK Disconnection Trap</div>
+                    <p class="advisory-desc">Fake electricity alerts threaten power cut at 9:30 PM and ask to install an APK or call a private mobile number. DISCOMs never distribute official updates via APK files.</p>
+                </div>
+
+                <div class="advisory-card high">
+                    <div class="advisory-title">💰 UPI PIN Reverse-Payment Scam</div>
+                    <p class="advisory-desc">You NEVER enter your UPI PIN to receive money, lottery prizes, or OLX buyer deposits. Entering PIN always debits money from your account.</p>
+                </div>
+
+                <div class="advisory-card review">
+                    <div class="advisory-title">📱 e-SIM &amp; Customer Care Search Hijack</div>
+                    <p class="advisory-desc">Fraudulent phone numbers posted on Google Maps pretending to be bank or airline support instruct victims to download AnyDesk or forward SIM activation SMS.</p>
+                </div>
+            </section>
+
+            <!-- 8. SETTINGS -->
+            <section class="view-panel" id="view-settings">
+                <div class="panel-header">
+                    <h2>⚙️ App Settings &amp; Privacy</h2>
+                    <p>ScamSathi Bharat AI Configuration</p>
+                </div>
+
+                <div class="settings-card">
+                    <div class="setting-item">
+                        <div>
+                            <strong>Dark Theme</strong>
+                            <p>High-contrast cybersecurity theme</p>
+                        </div>
+                        <input type="checkbox" id="chkDarkTheme" checked>
+                    </div>
+
+                    <div class="setting-item">
+                        <div>
+                            <strong>Local Privacy Safe Mode</strong>
+                            <p>All heuristic evaluations run 100% on-device</p>
+                        </div>
+                        <span class="badge-safe">ENFORCED</span>
+                    </div>
+
+                    <div class="setting-item">
+                        <div>
+                            <strong>National Helpline Integration</strong>
+                            <p>1930 Cyber Helpline &amp; cybercrime.gov.in links</p>
+                        </div>
+                        <span class="badge-safe">ACTIVE</span>
+                    </div>
+                </div>
+
+                <div class="info-footer-box">
+                    <strong>ScamSathi Universal Scam Guardian</strong>
+                    <span>Open Innovation Hackathon Edition v3.0</span>
+                    <p>Built to protect Indian citizens against digital deception at the point of contact.</p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Navigation Bar (Mobile Native Look & Feel) -->
+        <nav class="app-bottom-nav">
+            <button type="button" class="nav-item active" data-nav="view-dashboard">
+                <span class="nav-icon">🛡️</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button type="button" class="nav-item" data-nav="view-scan-message">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">Message</span>
+            </button>
+            <button type="button" class="nav-item" data-nav="view-whatsapp">
+                <span class="nav-icon">⚡</span>
+                <span class="nav-label">WhatsApp</span>
+            </button>
+            <button type="button" class="nav-item" data-nav="view-history">
+                <span class="nav-icon">📜</span>
+                <span class="nav-label">History</span>
+            </button>
+            <button type="button" class="nav-item" data-nav="view-alerts">
+                <span class="nav-icon">🚨</span>
+                <span class="nav-label">Alerts</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Core Unified AI Engine & App Controller -->
+    <script src="../core/scamsathi-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+

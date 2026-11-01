@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScamSathi Universal Scam Guardian</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="brand-box">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4" stroke="#00f2fe" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <span class="brand-name">ScamSathi</span>
+            <span class="brand-badge">GUARDIAN</span>
+          </div>
+          <div class="brand-sub" id="headerSubtitle">Universal Indian Cyber Threat Shield</div>
+        </div>
+      </div>
+
+      <!-- Language Toggle -->
+      <div class="lang-switch-box">
+        <button type="button" class="lang-btn active" id="langEnBtn" title="English">EN</button>
+        <button type="button" class="lang-btn" id="langHiBtn" title="हिंदी">हिं</button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="popup-tabs">
+      <button class="tab-btn active" data-tab="tab-message" id="tabMsgLabel">
+        <span>✉️ Message</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-url" id="tabUrlLabel">
+        <span>🔗 Link</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-sms" id="tabSmsLabel">
+        <span>📱 SMS Guide</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-status" id="tabStatusLabel">
+        <span>🛡️ Status</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: MESSAGE SCANNER -->
+    <section class="tab-content active" id="tab-message">
+      
+      <!-- Quick Test Presets -->
+      <div class="presets-row">
+        <span class="presets-tag" id="presetsTag">⚡ Presets:</span>
+        <div class="preset-chips">
+          <button type="button" class="chip" data-preset="bijli">⚡ Bijli APK</button>
+          <button type="button" class="chip" data-preset="upi">💰 UPI Cashback</button>
+          <button type="button" class="chip" data-preset="kyc">🏦 SBI KYC</button>
+          <button type="button" class="chip" data-preset="prize">🎁 Prize Fee</button>
+          <button type="button" class="chip chip-safe" data-preset="safe">✅ Safe Alert</button>
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="input-group">
+        <textarea 
+          id="messageInput" 
+          placeholder="Paste SMS, WhatsApp forward, email body, or UPI message to inspect..."
+          rows="4"
+        ></textarea>
+        
+        <div class="input-actions">
+          <div class="char-count" id="msgCharCount">0 chars</div>
+          <div class="btn-group-sm">
+            <button type="button" class="btn-text" id="pasteMsgBtn" title="Paste Clipboard">📋 Paste</button>
+            <button type="button" class="btn-text" id="clearMsgBtn" title="Clear Text">✖ Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-scan" id="scanMessageBtn">
+        <span class="scan-icon">🛡️</span>
+        <span id="scanMsgBtnText">Scan Message with ScamSathi</span>
+      </button>
+
+      <!-- Message Result Box -->
+      <div class="result-box hidden" id="messageResultBox">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- TAB 2: URL SCANNER -->
+    <section class="tab-content" id="tab-url">
+      <div class="url-desc" id="urlDescText">
+        Inspect links from SMS, WhatsApp, and social media. Detects bank impersonation, APK downloads, and high-risk domains without opening them.
+      </div>
+
+      <div class="url-input-wrap">
+        <input 
+          type="text" 
+          id="urlInput" 
+          placeholder="e.g. sbi-kyc-verification.top or https://..."
+        />
+        <button type="button" class="btn-text" id="clearUrlBtn">✖</button>
+      </div>
+
+      <div class="presets-row">
+        <span class="presets-tag">Quick:</span>
+        <div class="preset-chips">
+          <button type="button" class="chip" data-url-preset="sbi_fake">Fake SBI (.top)</button>
+          <button type="button" class="chip" data-url-preset="apk">Raw IP APK</button>
+          <button type="button" class="chip chip-safe" data-url-preset="legit">Official SBI</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn-scan" id="scanUrlBtn">
+        <span class="scan-icon">🔍</span>
+        <span id="scanUrlBtnText">Inspect &amp; Analyze Link</span>
+      </button>
+
+      <!-- URL Result Box -->
+      <div class="result-box hidden" id="urlResultBox">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- TAB 3: SMS MANUAL SCANNER & PRIVACY NOTICE -->
+    <section class="tab-content" id="tab-sms">
+      <div class="sms-guide-card">
+        <div class="sms-guide-header">
+          <span class="sms-icon">📱</span>
+          <div>
+            <h4 class="sms-guide-title" id="smsGuideTitle">SMS Scam Protection Protocol</h4>
+            <span class="sms-privacy-badge">🔒 Privacy Preserved</span>
+          </div>
+        </div>
+
+        <div class="sms-notice-box">
+          <p class="sms-notice-text" id="smsNoticeText">
+            <strong>Why Manual Scan?</strong> Web browsers and Chrome Extensions are sandboxed and <em>cannot directly access your Android phone's SMS inbox</em>. Beware of any extension claiming automatic mobile SMS access without an external companion app.
+          </p>
+        </div>
+
+        <h5 class="guide-steps-title" id="guideStepsTitle">How to safely scan an SMS:</h5>
+        <ol class="guide-steps-list">
+          <li id="step1"><strong>1. Copy SMS:</strong> Long-press the suspicious text on your phone or web SMS client.</li>
+          <li id="step2"><strong>2. Paste in Message Tab:</strong> Switch to the <strong>Message</strong> tab above and click <em>Paste</em>.</li>
+          <li id="step3"><strong>3. Instant Verification:</strong> ScamSathi evaluates APK traps, UPI PIN demands, and fake bank notices locally.</li>
+        </ol>
+
+        <button type="button" class="btn-outline-action" id="switchToMsgTabBtn">
+          👉 Go to Message Scanner Now
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB 4: WEB ACTIVE GUARDIAN STATUS -->
+    <section class="tab-content" id="tab-status">
+      <div class="status-card">
+        <div class="status-item">
+          <div class="status-left">
+            <span class="platform-logo">📧</span>
+            <div>
+              <div class="platform-name">Gmail Integration</div>
+              <div class="platform-desc" id="gmailStatusDesc">Active email scanner button injected directly in opened emails</div>
+            </div>
+          </div>
+          <span class="status-pill active" id="gmailBadge">Active</span>
+        </div>
+
+        <div class="status-item">
+          <div class="status-left">
+            <span class="platform-logo">💬</span>
+            <div>
+              <div class="platform-name">WhatsApp Web Integration</div>
+              <div class="platform-desc" id="waStatusDesc">Visible chat scanner on web.whatsapp.com without reading chat history</div>
+            </div>
+          </div>
+          <span class="status-pill active" id="waBadge">Active</span>
+        </div>
+
+        <div class="status-item">
+          <div class="status-left">
+            <span class="platform-logo">🛡️</span>
+            <div>
+              <div class="platform-name">Air-Gapped Privacy Engine</div>
+              <div class="platform-desc">Zero telemetry. Messages never leave your device.</div>
+            </div>
+          </div>
+          <span class="status-pill safe">100% Local</span>
+        </div>
+
+        <div class="helpline-footer">
+          <div class="helpline-title">National Cyber Crime Reporting Portal</div>
+          <div class="helpline-num">National Helpline: <strong>1930</strong> (Toll Free)</div>
+          <div class="helpline-web">cybercrime.gov.in · sancharsaathi.gov.in</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="popup-footer">
+      <span class="footer-left">ScamSathi Bharat AI · Heuristic v2.4</span>
+      <span class="footer-right">Local Safe Mode</span>
+    </footer>
+
+  </div>
+
+  <script src="detection/detector.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
+

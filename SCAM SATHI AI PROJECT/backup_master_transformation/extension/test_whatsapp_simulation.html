@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ScamSathi WhatsApp Web Automated Simulation Test</title>
+  <style>
+    body { font-family: sans-serif; background: #111b21; color: #e9edef; padding: 20px; }
+    .chat-container { width: 500px; background: #0b141a; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .message-in, .message-out { padding: 8px 12px; margin: 8px 0; border-radius: 8px; max-width: 80%; }
+    .message-in { background: #202c33; align-self: flex-start; }
+    .message-out { background: #005c4b; margin-left: auto; }
+    button { padding: 8px 14px; background: #00f2fe; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-right: 8px; }
+    #log { background: #070c18; padding: 12px; border-radius: 6px; font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <h2>ScamSathi - WhatsApp Web Automatic Detection Testbed</h2>
+  <div style="margin-bottom: 12px;">
+    <button id="addSuspiciousMsg">➕ Add Suspicious Message (Electricity APK)</button>
+    <button id="addNormalMsg">➕ Add Normal Message (Lunch at 1?)</button>
+    <button id="addOutgoingMsg">➕ Add Outgoing Message (My Own Text)</button>
+    <button id="switchChatBtn">🔄 Switch Chat (New Conversation)</button>
+  </div>
+
+  <div id="main" class="chat-container">
+    <header style="padding-bottom: 10px; border-bottom: 1px solid #222d34; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-weight: bold;">Simulated Contact (+91 98765 43210)</span>
+      <div id="headerActions"></div>
+    </header>
+    <div id="messagesPanel">
+      <div class="message-in" data-id="false_919876543210@c.us_MSG001">
+        <span class="selectable-text">Hello Ashok, please send me the report when you are free.</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Simulation Event Log:</h3>
+  <div id="log"></div>
+
+  <!-- Bypass hostname check in simulation by mocking location.hostname if needed -->
+  <script>
+    // Mock hostname to match web.whatsapp.com for test harness
+    Object.defineProperty(window.location, 'hostname', {
+      value: 'web.whatsapp.com',
+      configurable: true
+    });
+  </script>
+  <script src="detection/detector.js"></script>
+  <script src="platforms/whatsapp.js"></script>
+
+  <script>
+    const logEl = document.getElementById("log");
+    function log(msg) {
+      logEl.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${msg}</div>`;
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    let msgCounter = 2;
+
+    document.getElementById("addSuspiciousMsg").addEventListener("click", () => {
+      const panel = document.getElementById("messagesPanel");
+      const div = document.createElement("div");
+      div.className = "message-in";
+      div.setAttribute("data-id", `false_919876543210@c.us_MSG00${msgCounter++}`);
+      div.innerHTML = `<span class="selectable-text">Dear Customer, electricity will be disconnected tonight at 9:30 PM due to unpaid bill. Update immediately via http://bijli-update.apk or call power officer on 9812345678.</span>`;
+      panel.appendChild(div);
+      log("Simulated incoming scam message added. Waiting for MutationObserver...");
+    });
+
+    document.getElementById("addNormalMsg").addEventListener("click", () => {
+      const panel = document.getElementById("messagesPanel");
+      const div = document.createElement("div");
+      div.className = "message-in";
+      div.setAttribute("data-id", `false_919876543210@c.us_MSG00${msgCounter++}`);
+      div.innerHTML = `<span class="selectable-text">Hey, are we still meeting for lunch at 1 PM today? Let me know.</span>`;
+      panel.appendChild(div);
+      log("Simulated normal message added. Should NOT show high risk warning.");
+    });
+
+    document.getElementById("addOutgoingMsg").addEventListener("click", () => {
+      const panel = document.getElementById("messagesPanel");
+      const div = document.createElement("div");
+      div.className = "message-out";
+      div.setAttribute("data-id", `true_919876543210@c.us_MSG00${msgCounter++}`);
+      div.innerHTML = `<span class="selectable-text">I am testing UPI PIN entry http://reward-claim.online</span>`;
+      panel.appendChild(div);
+      log("Simulated user outgoing message added. Should be SKIPPED completely.");
+    });
+
+    document.getElementById("switchChatBtn").addEventListener("click", () => {
+      const panel = document.getElementById("messagesPanel");
+      panel.innerHTML = `
+        <div class="message-in" data-id="false_919999900000@c.us_NEW01">
+          <span class="selectable-text">Congratulations! You won Rs 5,000 PhonePe cashback. Enter your UPI PIN to claim: http://reward-claim.online</span>
+        </div>
+      `;
+      log("Chat switched! New conversation loaded with incoming prize scam.");
+    });
+
+    log("Testbed initialized. Monitoring DOM mutations...");
+  </script>
+</body>
+</html>
+

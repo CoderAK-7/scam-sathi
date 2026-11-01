@@ -1,0 +1,77 @@
+{
+  "manifest_version": 3,
+  "name": "ScamSathi Universal Scam Guardian",
+  "version": "2.0.0",
+  "description": "Automatic scam protection for WhatsApp Web, Gmail & Outlook. Local-first. Indian cyber fraud detection. UPI traps, phishing, KYC scams.",
+  "icons": {
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "ScamSathi Universal Scam Guardian"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://web.whatsapp.com/*",
+    "https://outlook.live.com/*",
+    "https://outlook.office.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": [
+        "detection/detector.js",
+        "platforms/whatsapp.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://mail.google.com/*",
+        "https://outlook.live.com/*",
+        "https://outlook.office.com/*"
+      ],
+      "js": [
+        "detection/detector.js",
+        "detection/email-analyzer.js",
+        "detection/url-analyzer.js",
+        "ui/email-warning.js",
+        "platforms/gmail.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "mailguard/*",
+        "detection/*",
+        "icons/*"
+      ],
+      "matches": [
+        "https://mail.google.com/*",
+        "https://outlook.live.com/*",
+        "https://outlook.office.com/*",
+        "https://web.whatsapp.com/*"
+      ]
+    }
+  ]
+}
